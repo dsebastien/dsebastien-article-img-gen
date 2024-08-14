@@ -15,7 +15,11 @@ Icon Packs:
 
 ## E2E
 
-Need to install Playwright dependencies
+Windows: Need to install Playwright
+
+`npx playwright install`
+
+Linux: Need to install Playwright dependencies
 
 ```
 sudo apt-get install libwoff1 libevent-2.1-7 libharfbuzz-icu0 libenchant-2-2 libhyphen0 libmanette-0.2-0
