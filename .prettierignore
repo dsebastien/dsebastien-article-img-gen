@@ -1,0 +1,12 @@
+# Add files here to ignore them from prettier formatting
+/dist
+/coverage
+node_modules/
+/.nx/cache
+/.nx/workspace-data
+/apps/app/.next
+.devcontainer/
+/tmp
+../apps/app/.env.example
+*.sh
+package-lock.json
