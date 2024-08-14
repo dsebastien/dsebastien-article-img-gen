@@ -1,6 +1,4 @@
 # Reference: https://vercel.com/docs/deployments/vercel-ignore
-# Ignore everything (folders and files) on root only
-/*
 .github
 .husky
 .idea
@@ -8,7 +6,12 @@
 .vscode/
 node_modules/
 tmp/
-.env
-.env.*
+.cz-config.js
+.editorconfig
+.gitattributes
+.gitignore
+.release-it.js
+commitlint.config.js
+renovate.json
 apps/app/.env.example
 .next/
