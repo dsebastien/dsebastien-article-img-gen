@@ -14,42 +14,15 @@
     ],
     "sharedGlobals": []
   },
-  "nxCloudAccessToken": "YmMyYmRmZGEtZmU2Zi00N2EwLWI3Y2MtNzIwMjc2MDI2YjRmfHJlYWQtd3JpdGU=",
+  "nxCloudAccessToken": "NzczMWUxZjMtMWY1OC00OGYwLTgzZWItODUwYzE4ZTUwNGNlfHJlYWQtd3JpdGU=",
   "plugins": [
     {
       "plugin": "@nx/next/plugin",
-      "options": {
-        "startTargetName": "start",
-        "buildTargetName": "build",
-        "devTargetName": "dev",
-        "serveStaticTargetName": "serve-static"
-      }
+      "options": { "startTargetName": "start", "buildTargetName": "build", "devTargetName": "dev", "serveStaticTargetName": "serve-static" }
     },
-    {
-      "plugin": "@nx/playwright/plugin",
-      "options": {
-        "targetName": "e2e"
-      }
-    },
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "lint"
-      }
-    },
-    {
-      "plugin": "@nx/jest/plugin",
-      "options": {
-        "targetName": "test"
-      }
-    }
+    { "plugin": "@nx/playwright/plugin", "options": { "targetName": "e2e" } },
+    { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } },
+    { "plugin": "@nx/jest/plugin", "options": { "targetName": "test" } }
   ],
-  "generators": {
-    "@nx/next": {
-      "application": {
-        "style": "tailwind",
-        "linter": "eslint"
-      }
-    }
-  }
+  "generators": { "@nx/next": { "application": { "style": "tailwind", "linter": "eslint" } } }
 }
