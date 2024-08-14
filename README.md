@@ -1,5 +1,7 @@
 # dSebastien Article Image Generator
 
+Image generator using [Replicate](https://replicate.com/)
+
 ## Setup
 
 - Create ./apps/app/.env.local based on .env.example
