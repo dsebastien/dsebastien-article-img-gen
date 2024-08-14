@@ -4,7 +4,7 @@
   "framework": "nextjs",
   "cleanUrls": true,
   "trailingSlash": false,
-  "ignoreCommand": "bash vercel-ignore-build-step.sh",
+  "ignoreCommand": "npx nx-ignore app",
   "outputDirectory": "dist/apps/app/.next",
   "public": false,
   "redirects": [],
