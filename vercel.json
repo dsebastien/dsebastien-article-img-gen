@@ -1,0 +1,14 @@
+{
+  "installCommand": "npm install",
+  "buildCommand": "npm run build:app",
+  "framework": "nextjs",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "ignoreCommand": "bash vercel-ignore-build-step.sh",
+  "outputDirectory": "dist/apps/app/.next",
+  "public": false,
+  "redirects": [],
+  "rewrites": [],
+  "crons": [],
+  "headers": []
+}
