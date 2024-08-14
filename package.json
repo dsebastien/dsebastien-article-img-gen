@@ -14,7 +14,6 @@
   "scripts": {
     "build": "npm run build:app",
     "build:app": "npx cross-env NODE_ENV=production && npx nx run app:build",
-    "build:app:old": " && cp -r ./apps/app/.next ./dist/apps/app && cp -r ./apps/app/public ./dist/apps/app && cp ./apps/app/next.config.js ./dist/apps/app/",
     "build:prod": "npm run build",
     "clean": "npx rimraf ./dist",
     "clean:install": "npx rimraf package-lock.json && npx rimraf ./node_modules && npx rimraf dist && npm install",
@@ -118,7 +117,7 @@
     "postcss": "8.4.38",
     "prettier": "^2.6.2",
     "release-it": "17.6.0",
-    "rimraf": "5.0.7",
+    "rimraf": "6.0.1",
     "tailwindcss": "3.4.10",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
