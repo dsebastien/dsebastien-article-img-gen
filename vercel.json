@@ -1,11 +1,11 @@
 {
-  "installCommand": "npm install",
+  "installCommand": "npm install --legacy-peer-deps",
   "buildCommand": "npm run build:app",
   "framework": "nextjs",
   "cleanUrls": true,
   "trailingSlash": false,
   "ignoreCommand": "npx nx-ignore app",
-  "outputDirectory": "dist/apps/app/.next",
+  "outputDirectory": "apps/app/.next",
   "public": false,
   "redirects": [],
   "rewrites": [],
