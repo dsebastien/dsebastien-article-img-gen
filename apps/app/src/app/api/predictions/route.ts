@@ -5,6 +5,9 @@ import { API_KEY_HEADER, API_KEY, REPLICATE_API_TOKEN, REPLICATE_IMAGE_GENERATIO
 import { predictionRequestBodySchema, PredictionResponseBody } from '../../utils/schemas';
 import { sleep } from '../../utils/sleep.fn';
 
+// Ensure this function has enough time to complete: https://vercel.com/docs/functions/configuring-functions/duration#maximum-duration-for-different-runtimes
+export const maxDuration = 60;
+
 // Force dynamic rendering: https://nextjs.org/docs/app/building-your-application/rendering/server-components#dynamic-rendering
 export const dynamic = 'force-dynamic';
 
