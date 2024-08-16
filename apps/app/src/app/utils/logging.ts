@@ -51,21 +51,26 @@ export function getLogLevel(loggingCategory: LoggingCategory): pino.Level {
 export function getLogger(loggingCategory: LoggingCategory, subCategory?: string) {
   const loggerName = `${loggingCategory} ${subCategory ? '- ' + subCategory : ''}`;
 
-  const retVal = pino({
-    browser: {},
-    base: {
-      // Not displaying additional information for now
-      env: process.env.NODE_ENV,
-    },
-    name: loggerName,
-    level: getLogLevel(loggingCategory),
-    transport: {
-      target: 'pino-pretty',
-      options: {
-        colorize: true,
-      },
-    },
+  // Using as a stream: https://github.com/pinojs/pino-pretty#usage-as-a-stream
+  // Because we want to avoid that issue: https://stackoverflow.com/questions/71938587/unable-to-determine-transport-target-for-pino-pretty
+  const stream = pretty({
+    levelFirst: true,
+    colorize: true,
+    ignore: 'time,hostname,pid',
   });
+
+  const retVal = pino(
+    {
+      browser: {},
+      base: {
+        // Not displaying additional information for now
+        env: process.env.NODE_ENV,
+      },
+      name: loggerName,
+      level: getLogLevel(loggingCategory),
+    },
+    stream,
+  );
 
   return retVal;
 }
