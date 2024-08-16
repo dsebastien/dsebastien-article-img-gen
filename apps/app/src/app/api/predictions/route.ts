@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getLogger } from '../../utils/logging';
 import Replicate from 'replicate';
-import { API_KEY_HEADER, API_KEY_SEBASTIEN, REPLICATE_API_TOKEN, REPLICATE_IMAGE_GENERATION_MODEL } from '../../constants';
+import { API_KEY_HEADER, API_KEY, REPLICATE_API_TOKEN, REPLICATE_IMAGE_GENERATION_MODEL } from '../../constants';
 import { predictionRequestBodySchema, PredictionResponseBody } from '../../utils/schemas';
 
 // Force dynamic rendering: https://nextjs.org/docs/app/building-your-application/rendering/server-components#dynamic-rendering
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  if (!process.env[API_KEY_SEBASTIEN]) {
+  if (!process.env[API_KEY]) {
     logger.error({}, 'The [API_KEY_SEBASTIEN] environment variable is not set. Cannot generate prediction');
     responseBody.error = 'The server is not configured correctly. Please try again later';
     return NextResponse.json(responseBody, {
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(responseBody, {
       status: 401,
     });
-  } else if (process.env[API_KEY_SEBASTIEN] !== clientApiKey) {
+  } else if (process.env[API_KEY] !== clientApiKey) {
     logger.warn({}, 'Invalid API key provided');
     responseBody.error = 'Access denied';
     return NextResponse.json(responseBody, {
