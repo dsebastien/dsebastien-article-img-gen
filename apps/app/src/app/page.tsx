@@ -63,14 +63,14 @@ export default function Index() {
         {error ? <div className="mt-2 p-4 bg-red-500">Error: {error}</div> : ''}
 
         <form onSubmit={generatePrediction} className="flex flex-col items-center w-full">
-          <div className="flex flex-col lg:flex-row">
+          <div className="mt-4 flex flex-col lg:flex-row">
             <div className="pl-4 pt-8 pr-4 pb-4 gap-8 flex flex-col lg:flex-row lg:gap-4 lg:p-4">
               <FloatLabel>
                 <InputText id="api-key" value={apiKey} minLength={1} onChange={(e) => setApiKey(e.target.value)} />
                 <label htmlFor="api-key">API Key</label>
               </FloatLabel>
               <FloatLabel>
-                <InputText id="prompt" value={prompt} minLength={1} onChange={(e) => setPrompt(e.target.value)} />
+                <InputText id="prompt" value={prompt} className="w-[64rem]" minLength={1} onChange={(e) => setPrompt(e.target.value)} />
                 <label htmlFor="prompt">Prompt</label>
               </FloatLabel>
             </div>
