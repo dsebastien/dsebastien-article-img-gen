@@ -105,7 +105,7 @@ export default function Index() {
             <div className="flex flex-col items-center justify-center w-full">
               {!loading && prediction && prediction.output && (
                 <Image
-                  src={prediction.output[prediction.output.length - 1]}
+                  src={Array.isArray(prediction.output) ? prediction.output[prediction.output.length - 1] : prediction.output}
                   width={500}
                   height={500}
                   alt="Image generated using AI"
