@@ -3,6 +3,7 @@ import { getLogger } from '../../utils/logging';
 import Replicate from 'replicate';
 import { API_KEY_HEADER, API_KEY, REPLICATE_API_TOKEN, REPLICATE_IMAGE_GENERATION_MODEL } from '../../constants';
 import { predictionRequestBodySchema, PredictionResponseBody } from '../../utils/schemas';
+import { sleep } from '../../utils/sleep.fn';
 
 // Force dynamic rendering: https://nextjs.org/docs/app/building-your-application/rendering/server-components#dynamic-rendering
 export const dynamic = 'force-dynamic';
@@ -12,7 +13,6 @@ export async function POST(request: NextRequest) {
   logger.info({}, 'Handling POST Prediction request');
 
   const responseBody: PredictionResponseBody = {
-    result: '',
     // No error by default
   };
 
@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
 
   logger.info(requestValidationResult.error, 'Sending request to Replicate...');
   try {
-    const predictionResult = await replicate.predictions.create({
+    let predictionResult = await replicate.predictions.create({
       model: process.env[REPLICATE_IMAGE_GENERATION_MODEL],
       // TODO enforce specific version of the model for stability (?)
       // version: "...",
@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
       input: { prompt: requestValidationResult.data.prompt },
     });
 
-    logger.info(predictionResult, 'Received response from Replicate');
+    logger.info(predictionResult, 'Response received from Replicate');
 
     if (predictionResult.error) {
       logger.warn(predictionResult.error.detail, 'Error received from Replicate');
@@ -96,12 +96,38 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    logger.info(predictionResult, 'Prediction received from Replicate');
+    // Load the data
+    while (predictionResult.status !== 'succeeded' && predictionResult.status !== 'failed') {
+      await sleep(1000);
 
-    // FIXME improve result form
-    responseBody.result = JSON.stringify(predictionResult);
+      logger.info({}, 'Loading the results from Replicate');
+      predictionResult = await replicate.predictions.get(predictionResult.id);
+      logger.info(predictionResult, 'Received response from Replicate');
+
+      if (predictionResult?.error) {
+        logger.warn(predictionResult.error.detail, 'Error received from Replicate');
+        responseBody.error = 'Could not fetch results';
+        return NextResponse.json(responseBody, {
+          status: 500,
+        });
+      }
+    }
+
+    if (predictionResult.status === 'failed') {
+      logger.warn({}, 'Failed to load the results from Replicate');
+      responseBody.error = 'Could not fetch results';
+      return NextResponse.json(responseBody, {
+        status: 500,
+      });
+    }
+
+    if (predictionResult.status === 'succeeded') {
+      logger.info(predictionResult, 'Successfully loaded the results from Replicate');
+    }
+
+    responseBody.result = predictionResult;
   } catch (error) {
-    logger.warn(error, 'Error receive from Replicate');
+    logger.warn(error, 'Error received from Replicate');
     responseBody.error = 'Could not generate prediction';
     return NextResponse.json(responseBody, {
       status: 500,

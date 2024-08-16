@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { Prediction } from 'replicate';
 
 export const predictionRequestBodySchema = z.object({
   prompt: z.string(),
@@ -7,7 +8,7 @@ export const predictionRequestBodySchema = z.object({
 export type PredictionRequestBody = z.infer<typeof predictionRequestBodySchema>;
 
 export const predictionResponseBodySchema = z.object({
-  result: z.string(),
+  result: z.custom<Prediction>().optional(),
   error: z.string().optional(),
 });
 
