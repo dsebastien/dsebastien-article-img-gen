@@ -101,29 +101,25 @@ export default function Index() {
           {/* TODO Switch to Prime react Toast: https://primereact.org/toast/ */}
           {error ? <div className="mt-4 p-4 bg-red-500">{error}</div> : ''}
 
-          {prediction && !loading && (
-            <div className="mt-4 p-4">
-              {prediction.output && (
-                <div className="flex flex-col items-center justify-center w-full">
-                  <Image
-                    src={prediction.output[prediction.output.length - 1]}
-                    width={500}
-                    height={500}
-                    alt="Image generated using AI"
-                    className="object-cover rounded-md border-gray-300 border-2"
-                  />
+          <div className="mt-4 p-4">
+            <div className="flex flex-col items-center justify-center w-full">
+              {!loading && prediction && prediction.output && (
+                <Image
+                  src={prediction.output[prediction.output.length - 1]}
+                  width={500}
+                  height={500}
+                  alt="Image generated using AI"
+                  className="object-cover rounded-md border-gray-300 border-2"
+                />
+              )}
+
+              {loading && (
+                <div className="w-[500px] h-[500px] flex flex-col items-center justify-center object-center">
+                  <ProgressSpinner className="w-32 h-32" strokeWidth={4} aria-label="Loading" />
                 </div>
               )}
             </div>
-          )}
-
-          {!prediction && loading && (
-            <div className="mt-4 p-4">
-              <div className="flex flex-col items-center justify-center w-full">
-                <ProgressSpinner className="w-32 h-32" strokeWidth={4} aria-label="Loading" />
-              </div>
-            </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
